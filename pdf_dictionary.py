@@ -41,15 +41,8 @@ def open_and_read_pdf(pdf_path: str) -> list[dict]:
     return pages_and_texts
 
 
-pages_and_texts = open_and_read_pdf(pdf_path="pdfs/Termeni_si_conditii_generale_de_afaceri_pentru_persoane_juridice_versiunea_13.pdf")
-#print(pages_and_texts[:2])
+pages_and_texts = open_and_read_pdf(pdf_path="pdfs/teste-admitere-informatica-02.03.2020.pdf")
 
-#print(random.sample(pages_and_texts, k=3))
-"""
-df = pd.DataFrame(pages_and_texts)
-print(df.head())
-print(df.describe().round(2))
-"""
 nlp = Romanian()
 
 # Add a sentencizer pipeline, see https://spacy.io/api/sentencizer/
@@ -66,13 +59,13 @@ for item in tqdm(pages_and_texts):
     # Count the sentences
     item["page_sentence_count_spacy"] = len(item["sentences"])
 print(random.sample(pages_and_texts, k=1))
-"""
-file_path = "my_list.json"
+
+file_path = "teste_admitere_info.json"
 
 # Write the list to the JSON file
 with open(file_path, "w") as json_file:
     json.dump(pages_and_texts, json_file)
-    """
+
 
 
 
