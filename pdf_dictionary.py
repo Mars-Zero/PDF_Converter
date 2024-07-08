@@ -64,7 +64,7 @@ file_path = "teste_admitere_info.json"
 
 # Write the list to the JSON file
 with open(file_path, "w") as json_file:
-    json.dump(pages_and_texts, json_file)
+    json.dump(pages_and_texts, json_file, ensure_ascii=False)
 
 
 
