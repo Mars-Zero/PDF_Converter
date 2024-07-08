@@ -43,7 +43,7 @@ def open_and_read_pdf(pdf_path: str) -> list[dict]:
 
 
 #pages_and_texts = open_and_read_pdf(pdf_path="pdfs/teste-admitere-informatica-02.03.2020.pdf")
-pdf_files = glob.glob("pdfs/Matematica/*.pdf")
+pdf_files = glob.glob("pdfs/Fizica/*.pdf")
 all_pages_and_texts = []
 
 nlp = Romanian()
@@ -69,7 +69,7 @@ for pdf_file in pdf_files:
 
 print(random.sample(all_pages_and_texts, k=1))
 
-file_path = "teste_admitere_matematica.json"
+file_path = "teste_admitere_fizica.json"
 
 # Write the list to the JSON file
 with open(file_path, "w") as json_file:
