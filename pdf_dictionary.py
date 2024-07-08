@@ -4,6 +4,7 @@ from tqdm.auto import tqdm # for progress bars, requires !pip install tqdm
 import random
 import spacy
 from spacy.lang.ro import Romanian
+import glob
 import json
 
 def text_formatter(text: str) -> str:
@@ -41,30 +42,38 @@ def open_and_read_pdf(pdf_path: str) -> list[dict]:
     return pages_and_texts
 
 
-pages_and_texts = open_and_read_pdf(pdf_path="pdfs/teste-admitere-informatica-02.03.2020.pdf")
+#pages_and_texts = open_and_read_pdf(pdf_path="pdfs/teste-admitere-informatica-02.03.2020.pdf")
+pdf_files = glob.glob("pdfs/Matematica/*.pdf")
+all_pages_and_texts = []
 
 nlp = Romanian()
 
 # Add a sentencizer pipeline, see https://spacy.io/api/sentencizer/
 nlp.add_pipe("sentencizer")
 
+for pdf_file in pdf_files:
+    pages_and_texts = open_and_read_pdf(pdf_file)
 
-# doc.sents
-for item in tqdm(pages_and_texts):
-    item["sentences"] = list(nlp(item["text"]).sents)
+    # Process the extracted text with Spacy
+    for item in tqdm(pages_and_texts, desc=f"Analyzing {pdf_file}"):
+        item["sentences"] = list(nlp(item["text"]).sents)
 
-    # Make sure all sentences are strings
-    item["sentences"] = [str(sentence) for sentence in item["sentences"]]
+        # Make sure all sentences are strings
+        item["sentences"] = [str(sentence) for sentence in item["sentences"]]
 
-    # Count the sentences
-    item["page_sentence_count_spacy"] = len(item["sentences"])
-print(random.sample(pages_and_texts, k=1))
+        # Count the sentences
+        item["page_sentence_count_spacy"] = len(item["sentences"])
 
-file_path = "teste_admitere_info.json"
+    all_pages_and_texts.extend(pages_and_texts)
+
+
+print(random.sample(all_pages_and_texts, k=1))
+
+file_path = "teste_admitere_matematica.json"
 
 # Write the list to the JSON file
 with open(file_path, "w") as json_file:
-    json.dump(pages_and_texts, json_file, ensure_ascii=False)
+    json.dump(all_pages_and_texts, json_file, ensure_ascii=False)
 
 
 
