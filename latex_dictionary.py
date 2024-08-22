@@ -4,6 +4,8 @@ from spacy.lang.ro import Romanian
 import glob
 import json
 from pylatexenc.latexwalker import LatexWalker
+from tqdm.auto import tqdm  # for progress bars, requires !pip install tqdm
+import re
 
 
 def latex_to_text(latex: str) -> str:
@@ -36,6 +38,49 @@ def text_formatter(text: str) -> str:
     return cleaned_text
 
 
+def split_sections(text: str):
+    """
+    Splits the text into exercises, options, and answers based on the provided patterns.
+
+    Parameters:
+        text (str): The plain text content.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing the exercise number, question, options, and answers.
+    """
+    # Patterns
+    exercise_pattern = r'(\d+\.\d+[A-Z]?)\s+(.+?)(?=\n\d+\.\d+[A-Z]?|\n\\part|\n\\section|\Z)'
+    options_pattern = r'([a-f])\)\s*(.*?)(?=(?:[a-f]\)|\n|$))'
+    answer_explanation_pattern = r'(\d+)\s*([a-f])\)\s*(.*?)(?=(?:\d+\s*[a-f]\)|(?<!\d)\)\s+))'
+
+    exercises = []
+
+    # Find exercises
+    for match in re.finditer(exercise_pattern, text, re.DOTALL):
+        exercise_number, exercise_text = match.groups()
+
+        # Find options within the exercise
+        options = []
+        for opt_match in re.finditer(options_pattern, exercise_text, re.DOTALL):
+            option_letter, option_text = opt_match.groups()
+            options.append({"option": option_letter, "text": option_text})
+
+        # Find answers and explanations within the exercise
+        answers = []
+        for ans_match in re.finditer(answer_explanation_pattern, exercise_text, re.DOTALL):
+            answer_number, answer_option, explanation = ans_match.groups()
+            answers.append({"answer_number": answer_number, "answer_option": answer_option, "explanation": explanation})
+
+        exercises.append({
+            "exercise_number": exercise_number,
+            "exercise_text": exercise_text,
+            "options": options,
+            "answers": answers
+        })
+
+    return exercises
+
+
 def open_and_read_latex(latex_path: str) -> list[dict]:
     """
     Opens a LaTeX file, reads its content, and collects statistics.
@@ -44,9 +89,8 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
         latex_path (str): The file path to the LaTeX document to be opened and read.
 
     Returns:
-        list[dict]: A list of dictionaries, each containing a simulated page number,
-        character count, word count, sentence count, token count, and the extracted text
-        for each simulated page.
+        list[dict]: A list of dictionaries, each containing an exercise number, question, options, answers,
+        character count, word count, sentence count, token count, and the extracted text for each exercise.
     """
     with open(latex_path, "r") as f:
         latex_content = f.read()
@@ -54,20 +98,19 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
     text = latex_to_text(latex_content)
     text = text_formatter(text)
 
-    # Simulate page-like chunks if necessary, here we assume the whole content as one page
-    pages_and_texts = [{"page_number": 0,
-                        "page_char_count": len(text),
-                        "page_word_count": len(text.split(" ")),
-                        "page_sentence_count_raw": len(text.split(". ")),
-                        "page_token_count": len(text) / 4,
-                        # 1 token = ~4 chars, see: https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
-                        "text": text}]
+    exercises = split_sections(text)
 
-    return pages_and_texts
+    for exercise in exercises:
+        exercise["char_count"] = len(exercise["exercise_text"])
+        exercise["word_count"] = len(exercise["exercise_text"].split(" "))
+        exercise["sentence_count_raw"] = len(exercise["exercise_text"].split(". "))
+        exercise["token_count"] = len(exercise["exercise_text"]) / 4  # 1 token = ~4 chars
+
+    return exercises
 
 
-latex_files = glob.glob("latex_docs/Fizica/*.tex")
-all_pages_and_texts = []
+latex_files = glob.glob("latex_docs/cnv_2024_07_17_524f58412b42245c9921g.tex")
+all_exercises = []
 
 nlp = Romanian()
 
@@ -75,24 +118,24 @@ nlp = Romanian()
 nlp.add_pipe("sentencizer")
 
 for latex_file in latex_files:
-    pages_and_texts = open_and_read_latex(latex_file)
+    exercises = open_and_read_latex(latex_file)
 
     # Process the extracted text with Spacy
-    for item in tqdm(pages_and_texts, desc=f"Analyzing {latex_file}"):
-        item["sentences"] = list(nlp(item["text"]).sents)
+    for item in tqdm(exercises, desc=f"Analyzing {latex_file}"):
+        item["sentences"] = list(nlp(item["exercise_text"]).sents)
 
         # Make sure all sentences are strings
         item["sentences"] = [str(sentence) for sentence in item["sentences"]]
 
         # Count the sentences
-        item["page_sentence_count_spacy"] = len(item["sentences"])
+        item["sentence_count_spacy"] = len(item["sentences"])
 
-    all_pages_and_texts.extend(pages_and_texts)
+    all_exercises.extend(exercises)
 
-print(random.sample(all_pages_and_texts, k=1))
+print(random.sample(all_exercises, k=1))
 
 file_path = "teste_admitere_fizica.json"
 
 # Write the list to the JSON file
 with open(file_path, "w") as json_file:
-    json.dump(all_pages_and_texts, json_file, ensure_ascii=False)
+    json.dump(all_exercises, json_file, ensure_ascii=False, indent=4)
