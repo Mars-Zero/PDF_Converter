@@ -163,12 +163,63 @@ def open_and_read_latex_results(latex_path: str) -> list[dict]:
 
     text = latex_to_text(latex_content)
     text = text_formatter(text)
-    print(text)
 
     results = split_results_sections(text)
 
     return results
 
+def split_explanations(text: str) -> list[dict]:
+    """
+    Splits the LaTeX text into exercises with question numbers and explanations.
+
+    Parameters:
+        text (str): The plain text content.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing the question number and explanation.
+    """
+    # Regex pattern to capture question numbers and explanations
+    pattern = re.compile(
+        r'(?P<question_number>\d+)\s*[a-f]?\)\s*'  # Capture question number only (digits)
+        r'(?P<explanation>(?:.|\n)*?)'  # Capture explanation text (non-greedy)
+        r'(?=\s*\d+\s*[a-f]?\)|$)',  # Lookahead to next question or end of string
+        re.DOTALL  # Enable dot to match newlines
+    )
+
+    results = []
+
+    # Iterate over each match
+    for match in pattern.finditer(text):
+        question_number = match.group("question_number").strip()
+        explanation = match.group("explanation").strip()
+
+        results.append({
+            "question_number": question_number,
+            "explanation": explanation
+        })
+
+    return results
+
+
+def open_and_read_latex_explanations(latex_path: str) -> list[dict]:
+    """
+    Opens a LaTeX file, reads its content, and parses the explanations.
+
+    Parameters:
+        latex_path (str): The file path to the LaTeX document to be opened and read.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing the question number and explanation.
+    """
+    with open(latex_path, "r", encoding="utf-8") as f:
+        latex_content = f.read()
+
+    text = latex_to_text(latex_content)
+    text = text_formatter(text)
+    print(text)
+    explanation_values = split_explanations(text)
+
+    return explanation_values
 
 
 
@@ -193,6 +244,11 @@ for latex_file in latex_results_files:
     results = open_and_read_latex_results(latex_file)
     all_exercises.extend(results)
 
+latex_explanation_files = glob.glob("latex_docs/Explicatii.tex")
+explanations = []
+for latex_file in latex_explanation_files:
+    explanation = open_and_read_latex_explanations(latex_file)
+    explanations.extend(explanation)
 # Define the output JSON file path
 file_path = "teste_admitere_fizica.json"
 
