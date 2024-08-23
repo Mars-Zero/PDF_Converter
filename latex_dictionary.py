@@ -1,12 +1,9 @@
 import random
-import spacy
-from spacy.lang.ro import Romanian
 import glob
 import json
 from pylatexenc.latexwalker import LatexWalker
-from tqdm.auto import tqdm  # for progress bars, requires !pip install tqdm
+from tqdm.auto import tqdm  # for progress bars
 import re
-
 
 def latex_to_text(latex: str) -> str:
     """
@@ -34,11 +31,11 @@ def latex_to_text(latex: str) -> str:
 
 def text_formatter(text: str) -> str:
     """Performs minor formatting on text."""
-    cleaned_text = text.replace("\n", " ").strip()  # note: this might be different for each doc (best to experiment)
+    cleaned_text = text.replace("\n", " ").strip()  # Adjust as needed
     return cleaned_text
 
 
-def split_sections(text: str):
+def split_sections(text: str) -> list[dict]:
     """
     Splits the text into exercises, options, and answers based on the provided patterns.
 
@@ -48,34 +45,43 @@ def split_sections(text: str):
     Returns:
         list[dict]: A list of dictionaries, each containing the exercise number, question, options, and answers.
     """
-    # Patterns
-    exercise_pattern = r'(\d+\.\d+[A-Z]?)\s+(.+?)(?=\n\d+\.\d+[A-Z]?|\n\\part|\n\\section|\Z)'
-    options_pattern = r'([a-f])\)\s*(.*?)(?=(?:[a-f]\)|\n|$))'
-    answer_explanation_pattern = r'(\d+)\s*([a-f])\)\s*(.*?)(?=(?:\d+\s*[a-f]\)|(?<!\d)\)\s+))'
+    # Updated Regex pattern
+    exercise_pattern = re.compile(
+        r'(?P<exercise_number>\d+\.\d+A?)\s*'  # Capture exercise number
+        r'(?P<exercise_text>.+?)'              # Capture exercise text (non-greedy)
+        r'(?P<answer_choices>(?:\s*[a-f]\)\s*.*?)*?)'  # Capture all answer choices
+        r'(?=\d+\.\d+A?|$)',                   # Lookahead to next exercise or end of string
+        re.DOTALL  # Enable dot to match newlines
+    )
+
+    # Regex to extract individual options
+    options_pattern = re.compile(
+        r'([a-f])\)\s*(.*?)\s*(?=\s*[a-f]\)|$)',  # Capture each option letter and text
+        re.DOTALL
+    )
 
     exercises = []
 
-    # Find exercises
-    for match in re.finditer(exercise_pattern, text, re.DOTALL):
-        exercise_number, exercise_text = match.groups()
+    # Iterate over each exercise match
+    for match in exercise_pattern.finditer(text):
+        exercise_number = match.group("exercise_number").strip()
+        exercise_text = match.group("exercise_text").strip()
+        answer_choices = match.group("answer_choices").strip()
 
-        # Find options within the exercise
+        # Extract individual options
         options = []
-        for opt_match in re.finditer(options_pattern, exercise_text, re.DOTALL):
-            option_letter, option_text = opt_match.groups()
-            options.append({"option": option_letter, "text": option_text})
-
-        # Find answers and explanations within the exercise
-        answers = []
-        for ans_match in re.finditer(answer_explanation_pattern, exercise_text, re.DOTALL):
-            answer_number, answer_option, explanation = ans_match.groups()
-            answers.append({"answer_number": answer_number, "answer_option": answer_option, "explanation": explanation})
+        for opt_match in options_pattern.finditer(answer_choices):
+            option_letter = opt_match.group(1).strip()
+            option_text = opt_match.group(2).strip()
+            options.append({
+                "option_letter": option_letter,
+                "option_text": option_text
+            })
 
         exercises.append({
             "exercise_number": exercise_number,
             "exercise_text": exercise_text,
-            "options": options,
-            "answers": answers
+            "options": options
         })
 
     return exercises
@@ -90,9 +96,9 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
 
     Returns:
         list[dict]: A list of dictionaries, each containing an exercise number, question, options, answers,
-        character count, word count, sentence count, token count, and the extracted text for each exercise.
+                    character count, word count, sentence count, token count, and the extracted text for each exercise.
     """
-    with open(latex_path, "r") as f:
+    with open(latex_path, "r", encoding="utf-8") as f:
         latex_content = f.read()
 
     text = latex_to_text(latex_content)
@@ -102,40 +108,37 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
 
     for exercise in exercises:
         exercise["char_count"] = len(exercise["exercise_text"])
-        exercise["word_count"] = len(exercise["exercise_text"].split(" "))
-        exercise["sentence_count_raw"] = len(exercise["exercise_text"].split(". "))
-        exercise["token_count"] = len(exercise["exercise_text"]) / 4  # 1 token = ~4 chars
+        exercise["word_count"] = len(exercise["exercise_text"].split())
+        exercise["sentence_count_raw"] = len(re.split(r'[.!?]+', exercise["exercise_text"]))  # Improved sentence count
+        exercise["token_count"] = len(exercise["exercise_text"]) / 4  # Approximation
 
     return exercises
 
 
+# Define the path to the LaTeX files
 latex_files = glob.glob("latex_docs/cnv_2024_07_17_524f58412b42245c9921g.tex")
 all_exercises = []
 
-nlp = Romanian()
 
-# Add a sentencizer pipeline, see https://spacy.io/api/sentencizer/
-nlp.add_pipe("sentencizer")
-
+# Process each LaTeX file
 for latex_file in latex_files:
     exercises = open_and_read_latex(latex_file)
 
-    # Process the extracted text with Spacy
+    # Analyze each exercise with Spacy
     for item in tqdm(exercises, desc=f"Analyzing {latex_file}"):
-        item["sentences"] = list(nlp(item["exercise_text"]).sents)
-
-        # Make sure all sentences are strings
-        item["sentences"] = [str(sentence) for sentence in item["sentences"]]
-
-        # Count the sentences
-        item["sentence_count_spacy"] = len(item["sentences"])
+        doc = item["exercise_text"]
+        sentences = list(doc)
 
     all_exercises.extend(exercises)
 
+# Optionally, inspect a random sample
 print(random.sample(all_exercises, k=1))
 
+# Define the output JSON file path
 file_path = "teste_admitere_fizica.json"
 
-# Write the list to the JSON file
-with open(file_path, "w") as json_file:
+# Write the extracted data to the JSON file
+with open(file_path, "w", encoding="utf-8") as json_file:
     json.dump(all_exercises, json_file, ensure_ascii=False, indent=4)
+
+print(f"Data extraction complete! Check '{file_path}' for the output.")
