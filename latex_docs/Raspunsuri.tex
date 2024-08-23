@@ -1,0 +1,97 @@
+% This LaTeX document needs to be compiled with XeLaTeX.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{ucharclasses}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[fallback]{xeCJK}
+\usepackage{polyglossia}
+\usepackage{fontspec}
+
+\setmainlanguage{romanian}
+
+\title{Teste de matematică}
+
+\author{}
+\date{}
+
+
+%New command to display footnote whose markers will always be hidden
+\let\svthefootnote\thefootnote
+\newcommand\blfootnotetext[1]{%
+  \let\thefootnote\relax\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \let\thefootnote\svthefootnote%
+}
+
+%Overriding the \footnotetext command to hide the marker if its value is `0`
+\let\svfootnotetext\footnotetext
+\renewcommand\footnotetext[2][?]{%
+  \if\relax#1\relax%
+    \ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+  \else%
+    \if?#1\ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+    \else\svfootnotetext[#1]{#2}\fi%
+  \fi
+}
+
+\newcommand\longdiv[1]{\overline{\smash{)}#1}}
+
+\begin{document}
+\maketitle
+
+\part*{Capitolul 5}
+\section*{Răspunsuri}
+\subsection*{1. Algebră}
+\subsubsection*{1.1 Mulțimi, funcții. Funcția de gradul al doilea}
+1 d) 2 e) 3 d) 4 b) 5 c) 6 b) 7 a) 8 f) 9 e) 10 a) 11 e) 12 d) 13 a) 14 c) 15 a) 16 f) 17 b) 18 e) 19 b) 20 e) 21 c) 22 e) 23 d) 24 f) 25 a) 26 c) 27 b) 28 c) 29 d) 30 a) 31 c) 32 d) 33 b) 34 b) 35 c) 36 a) 37 c) 38 c) 39 b) 40 a) 41 e) 42 d) 43 b) 44 b) 45 f) 46 b) 47 a) 48 f) 49 c) 50 a) 51 c) 52 f) 53 e) 54 a) 55 e) 56 b) 57 b) 58 a) 59 d) 60 c) 61 b) 62 c) 63 b) 64 d) 65 d) 66 d) 67 d) 68 c) 69 e) 70 d) 71 a) 72 a) 73 c) 74 e) 75 c) 76 c) 77 c) 78 c) 79 c) 80 b) 81 d) 82 d) 83 b) 84 c) 85 b) 86 c) 87 a) 88 d) 89 f) 90 b) 91 d) 92 e) 93 c) 94 d) 95 a) 96 a) 97 b) 98 b) 99 c) 100 a) 101 e) 102 c) 103 c) 104 d) 105 d) 106 c) 107 e) 108 b) 109 d) 110 b) 111 d) 112 e) 113 d) 114 e) 115 c) 116 a) 117 e) 118 b) 119 a) 120 a) 121 b) 122 a) 123 a) 124 d) 125 b) 126 d) 127 b) 128 b) 129 d) 130 b) 131 c) 132 b) 133 b) 134 c) 135 a) 136 b) 137 c) 138 c) 139 a) 140 a) 141 c) 142 a) 143 e) 144 a) 145 b) 146 d) 147 d) 148 a) 149 f) 150 b) 151 b) 152 a) 153 b) 154 a) 155 c) 156 c) 157 a) 158 e) 159 d) 160 b) 161 b) 162 d) 163 c) 164 d) 165 c) 166 b) 167 d) 168 e) 169 f) 170 b) 171 c) 172 b) 174 c) 175 a) 176 c) 177 d) 178 a) 179 d) 180 a) 181 c) 182 a) 183 d) 184 f) 185 e) 186 d) 187 a)
+
+\subsubsection*{1.2 Funcția exponențială şi funcția logaritmică}
+188 b) 189 b) 190 c) 191 d) 192 a) 193 b) 194 c) 195 f) 196 a) 197 a) 198 c) 199 c) 200 d) 201 e) 202 f) 203 a) 204 c) 205 c) 206 c) 207 a) 208 d) 209 d) 210 c) 211 b) 212 d) 213 b) 214 c) 215 c) 216 c) 217 c) 218 a) 219 d) 220 b) 221 b) 222 e) 223 f) 224 c) 225 f) 226 f) 227 d) 228 b) 229 b) 230 d) 231 d) 232 d) 233 c) 234 f) 235 a) 236 f) 237 d) 238 e) 239 b) 240 c) 241 f) 242 e) 243 a) 244 d) 245 a) 246 b) 247 c) 248 b) 249 b) 250 a) 251 d) 252 a) 253 d) 254 a) 255 b) 256 f)
+
+\subsubsection*{1.3 Numere complexe. Inducție și combinatorică. Polinoame}
+257 c) 258 b) 259 a) 260 d) 261 b) 262 f) 263 e) 264 c) 265 e) 266 d) 267 c) 268 a) 269 b) 270 c) 271 f) 272 a) 273 a) 274 f) 275 f) 276 c) 277 c) 278 a) 279 e) 280 d) 281 e) 282 a) 283 c) 284 e) 285 f) 286 e) 287 c) 288 e) 289 b) 290 d) 291 c) 292 c) 293 d) 294 f) 295 c) 296 a) 297 a) 298 c) 299 a) 300 f) 301 b) 302 b) 303 c) 304 b) 305 a) 306 a) 307 f) 308 a) 309 b) 310 a) 311 e) 312 d) 313 c) 314 c) 315 b) 316 d) 317 e) 318 a) 319 d) 320 a) 321 f) 322 c) 323 a) 324 b) 325 c) 326 d) 327 d) 328 a) 329 b) 330 c) 331 c) 332 d) 333 d) 334 e) 335 b) 336 b) 337 a) 338 b) 339 a) 340 a) 341 f) 342 c) 343 d) 344 b) 345 b) 346 c) 347 f) 348 a) 349 b) 350 b) 351 d) 352 c) 353 d) 354 c) 355 e) 356 b) 357 d) 358 b) 359 b) 360 c) 361 a) 362 b) 363 c) 364 d) 365 d) 366 e) 367 c)
+
+\subsubsection*{1.4 Matrice. Determinanți. Sisteme liniare}
+368 f) 369 b) 370 e) 371 d) 372 d) 373 f) 374 a) 375 c) 376 f) 377 e) 378 c) 379 e) 380 a) 381 b) 382 d) 383 e) 384 b) 385 a) 386 d) 387 a) 388 d) 389 a) 390 c) 391 f) 392 e) 393 b) 394 f) 395 e) 396 b) 397 d) 398 d) 399 d) 400 c) 401 c) 402 d) 403 c) 404 c) 405 a) 406 b) 407 d) 408 c) 409 c) 410 e) 411 b) 412 d) 413 f) 414 b) 415 a) 416 d) 417 c) 418 a) 419 e) 420 d) 421 d) 422 c) 423 f) 424 d) 425 d) 426 d) 427 d) 428 a) 429 a) 430 b) 431 b) 432 d) 433 f) 434 d) 435 e) 436 a) 437 d) 438 b) 439 e) 440 d) 441 a) 442 e) 443 c) 444 b) 445 a) 446 f) 447 c) 448 e) 449 b) 450 e) 451 d) 452 b) 453 c)
+
+\subsubsection*{1.5 Structuri algebrice}
+454 c) 455 e) 456 a) 457 f) 458 b) 459 f) 460 d) 461 f) 462 d) 463 c) 464 c) 465 d) 466 c) 467 c) 468 b) 469 a) 470 d) 471 c) 472 a) 473 b) 474 d) 475 a) 476 e) 477 f) 479 b) 480 f) 481 a) 482 f) 483 a) 484 b) 485 c) 486 a) 487 b) 488 d) 489 f) 490 b) 491 e) 492 b) 493 a) 494 f) 495 a) 496 d) 497 c) 498 b) 499 e) 500 b) 501 a) 502 b) 503 e) 504 a) 505 e) 506 d) 507 c) 508 c) 509 e) 510 b) 511 d) 512 d) 513 b) 514 d) 515 c) 516 e) 517 b) 518 b) 519 d) 520 d) 521 c) 522 a) 523 b) 524 c)
+
+\subsection*{2. Analiză matematică}
+\subsubsection*{2.1 Numere reale. Progresii. Șiruri}
+525 c) 526 f) 527 a) 528 b) 529 d) 530 a) 531 e) 532 c) 533 f) 534 b) 535 f) 536 e) 537 a) 538 e) 539 f) 540 c) 541 a) 542 b) 543 b) 544 a) 545 e) 546 c) 547 c) 548 a) 549 b) 550 d) 551 c) 552 c) 553 f) 554 e) 555 a) 556 e) 557 d) 558 a) 559 b) 560 d) 561 a) 562 c) 563 d) 564 d) 565 e) 566 c) 567 d) 568 f) 569 a) 570 b) 571 b) 572 a) 573 c) 574 b)
+
+\subsubsection*{2.2 Limite}
+575 c) 576 a) 577 d) 578 b) 579 d) 580 c) 581 e) 582 f) 583 d) 584 b) 585 a) 586 d) 587 d) 588 c) 589 c) 590 d) 591 d) 592 d) 593 a) 594 b) 595 c) 596 e) 597 a) 598 a) 599 c) 600 c) 601 d) 602 d) 603 a) 604 b) 605 f) 606 e) 607 f) 608 a) 609 c) 610 c) 611 c) 612 f) 613 d) 614 d) 615 c) 616 c) 617 d) 618 a) 619 b) 620 f) 621 c) 622 d) 623 b) 624 b) 625 c) 626 b) 627 b) 628 a) 629 e) 630 a) 631 c) 632 f) 633 a) 634 c) 635 e) 636 a) 637 e) 638 a) 639 e) 640 d) 641 a) 642 c) 643 f) 644 c) 645 a) 646 a) 647 e) 648 d) 649 d) 650 e) 651 a) 652 a) 653 c) 654 a) 655 b) 656 a) 657 c) 658 c) 659 c) 660 f) 661 f)
+
+\subsubsection*{2.3 Funcții continue}
+662 b) 663 b) 664 a) 665 d) 666 f) 667 c) 668 a) 669 d) 670 e) 671 f) 672 c) 673 b) 674 d) 675 a) 676 a) 677 e) 678 c) 679 e) 680 d) 681 e) 682 d) 683 e) 684 f) 685 a) 686 d) 687 b) 688 c) 689 c) 690 a) 691 e) 692 f) 693 d) 694 b) 695 a) 696 e) 697 d) 698 e) 699 c) 700 c) 701 d) 702 d) 703 b) 704 d) 705 c) 706 b) 707 d) 708 c) 709 d) 710 a) 711 f) 712 c) 713 d)
+
+\subsubsection*{2.4 Derivabilitate}
+714 a) 715 c) 716 b) 717 d) 718 c) 719 d) 720 b) 721 a) 722 a) 723 c) 724 d) 725 e) 726 b) 727 a) 728 a) 729 a) 730 e) 731 b) 732 c) 733 f) 734 b) 735 e) 736 d) 737 e) 738 d) 739 d) 740 c) 741 c) 742 b) 743 d) 744 d) 745 a) 746 c) 747 a) 748 a) 749 d) 750 c) 751 b) 752 a) 753 a) 754 c) 755 c) 756 c) 757 c) 758 a) 759 b) 760 b) 761 a) 762 b) 763 b) 764 e) 765 e) 766 e) 767 c) 768 e) 769 a) 770 c) 771 e) 772 f)
+
+\subsubsection*{2.5 Studiul funcțiilor cu ajutorul derivatei}
+773 d) 774 e) 775 c) 776 d) 777 f) 778 c) 779 b) 780 a) 781 f) 782 f) 783 e) 784 c) 785 a) 786 e) 787 c) 788 c) 789 a) 790 b) 791 e) 792 c) 793 f) 794 d) 795 c) 796 a) 797 f) 798 d) 799 c) 800 d) 801 c) 802 b) 803 e) 804 e) 805 c) 806 d) 807 c) 808 f) 809 e) 810 c) 811 e) 812 a) 813 b) 814 c) 815 a) 816 a) 817 a) 818 d) 819 c) 820 b) 821 e) 822 c) 823 f) 824 c) 825 e) 826 d) 827 f) 828 f) 829 b) 830 c) 831 d) 832 f) 833 c) 834 b) 835 a) 836 a) 837 d) 838 b) 839 d) 840 d) 841 f) 842 f) 843 b)
+
+\subsubsection*{2.6 Grafice de funcții}
+844 b) 845 c) 846 b) 847 c) 848 d) 849 b) 850 c) 851 e) 852 c) 853 a) 854 c) 855 c) 856 e) 857 e) 858 b) 859 f) 860 e) 861 a) 862 a) 863 b) 864 b) 865 d) 866 d) 867 d) 868 c) 869 d) 870 a) 871 d) 872 b) 873 f) 874 c) 875 d) 876 c) 877 e) 878 f) 879 d) 880 d) 881 b) 882 d) 883 b) 884 a) 885 e) 886 d) 887 c) 888 b) 889 b) 890 c) 891 a) 892 a) 893 c) 894 b) 895 b) 896 a) 897 d) 898 c) 899 c) 900 c) 901 d) 902 e) 903 e) 904 c) 905 b) 906 d) 907 d) 908 b) 909 a) 910 d) 911 e) 912 e) 913 d) 914 a) 915 c) 916 d) 917 b) 918 a) 919 c) 920 b)
+
+\subsubsection*{2.7 Primitive}
+921 e) 922 b) 923 a) 924 b) 925 c) 926 c) 927 a) 928 d) 929 c) 930 a) 931 c) 932 b) 933 c) 934 c) 935 d) 936 d) 937 b) 938 a) 939 d) 940 c) 941 b) 942 e) 943 a) 944 f) 945 d) 946 a) 947 e) 948 c) 949 b) 950 e) 951 c) 952 c) 953 a) 954 c) 955 d) 956 b) 957 c) 958 c) 959 b) 960 e) 961 c) 962 e) 963 b) 964 d) 965 e) 966 a) 967 d) 968 b) 969 d) 970 e) 971 c) 972 c) 973 b) 974 d) 975 b) 976 e) 977 c) 978 c) 979 b)
+
+\subsubsection*{2.8 Integrale definite}
+980 a) 981 a) 982 c) 983 c) 984 a) 985 c) 986 d) 987 a) 988 c) 989 a) 990 c) 991 a) 992 c) 993 a) 994 c) 995 a) 996 d) 997 c) 998 e) 999 b) 1000 f) 1001 a) 1002 d) 1003 c) 1004 e) 1005 b) 1006 b) 1007 a) 1008 c) 1009 a) 1010 b) 1011 d) 1012 f) 1013 a) 1014 c) 1015 e) 1016 c) 1017 b) 1018 c) 1019 d) 1020 d) 1021 c) 1022 b) 1023 a) 1024 f) 1025 d) 1026 c) 1027 c) 1028 b) 1029 e) 1030 d) 1031 f) 1032 a) 1033 a) 1034 c) 1035 d) 1036 d) 1037 b) 1038 c) 1039 b) 1040 b) 1041 d) 1042 a) 1043 a) 1044 b) 1045 e) 1046 c) 1047 a) 1048 c) 1049 c) 1050 a) 1051 a) 1052 b) 1053 c) 1054 f) 1055 e) 1056
+
+\subsection*{3. Geometrie}
+\subsubsection*{3.1 Vectori. Operații cu vectori}
+1057 d) 1058 d) 1059 c) 1060 c) 1061 d) 1062 c)
+
+\end{document}

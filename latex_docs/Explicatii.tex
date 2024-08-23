@@ -1,0 +1,168 @@
+% This LaTeX document needs to be compiled with XeLaTeX.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{ucharclasses}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[fallback]{xeCJK}
+\usepackage{polyglossia}
+\usepackage{fontspec}
+
+\setmainlanguage{romanian}
+
+\title{Teste de matematică}
+
+\author{}
+\date{}
+
+
+%New command to display footnote whose markers will always be hidden
+\let\svthefootnote\thefootnote
+\newcommand\blfootnotetext[1]{%
+  \let\thefootnote\relax\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \let\thefootnote\svthefootnote%
+}
+
+%Overriding the \footnotetext command to hide the marker if its value is `0`
+\let\svfootnotetext\footnotetext
+\renewcommand\footnotetext[2][?]{%
+  \if\relax#1\relax%
+    \ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+  \else%
+    \if?#1\ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+    \else\svfootnotetext[#1]{#2}\fi%
+  \fi
+}
+
+\newcommand\longdiv[1]{\overline{\smash{)}#1}}
+
+\begin{document}
+\maketitle
+
+\part*{Capitolul 6}
+\section*{Explicații}
+\subsection*{1. Algebră}
+\subsubsection*{1.1 Mulțimi, funcții. Funcția de gradul al doilea}
+34 Notăm $t=x^{2}-4 x+5=(x-2)^{2}+1$ și obținem $t \in\left[\frac{4}{5}, \infty\right)$ de unde $(x-2)^{2}+\frac{1}{5} \geq 0$, deci $x \in \mathbb{R}$.\\
+35 $(x-4)^{2}+(y-4)^{2}-32+m>0, \forall x, y \in \mathbb{R}$, de unde rezultă $-32 + m > 0$, deci $m>32$. 43 deoarece $A=(-3, \infty)$ și $B=(-\infty, \frac{3}{2}]$.\\
+72 $\sqrt[5]{72}<\sqrt[4]{12}$ deoarece $72<12^{2}=144$, iar $\sqrt[4]{12}<\sqrt{6}$, adică $12<6^{2}=36$ deci corect este a).\\
+73 f este injectivă $\left(3 x_{1}+2=3 x_{2}+2 \Rightarrow x_{1}=x_{2}\right)$ și surjectivă deoarece $f(-\infty)=-\infty, f(+\infty)=\infty$ și pentru orice $y \in \mathbb{R}$ există $x \in \mathbb{R}$ astfel încât $y=3 x+2$ și anume $x=\frac{y-2}{3}$. Deoarece $3|x|+2 \geq 2$, avem $\operatorname{Im} g=[2, \infty)$, deci $g$ nu este surjectivă. Funcția $g$ nu este nici injectivă pentru că $g\left(x_{1}\right)=3\left|x_{1}\right|+2=3\left|-x_{1}\right|+2=g\left(-x_{1}\right)$.\\
+91 Se face substituția $t=x-\frac{1}{x}$.\\
+98 Condiții de existență: $x \geq 1$, $x^{4}-x-1 \leq 0$. După ridicare la pătrat rezultă și condiția $2 x-x^{2} \leq 0$, i.e. $x \in[0,2]$. După o nouă ridicare la pătrat se obține ecuația $4 x^{3}-4 x^{2}-x=0$ cu singura soluție convenabilă $x=(1+\sqrt{2}) / 2$.\\
+100 Condiții: $x \in[-9,97]$. Notăm $\sqrt[4]{97-x}=u \geq 0, \sqrt{9+x}=v \leq 0$. Se obține sistemul $u+v=8, u^{4}+v^{2}=106$ de unde rezultă ecuația $u^{4}+u^{2}-16 u-42=0$ cu singura soluție pozitivă $u=3$; se obțin $x=16$.\\
+104 deoarece $A=\left[\frac{1}{2}, \infty\right)$ și $B=\left[-\frac{2}{3}, \frac{3}{2}\right]$.\\
+118 Se folosesc relațiile lui Viète.\\
+126 Cazul $m=2$ nu convine (o singură rădăcină).\\
+127 Punctu $(-1,3)$ al dreptei $y=2-x$ nu este vârful nici unei parabole.\\
+137 Deoarece $1-x>0$, $x<1 \Rightarrow|x+1|=x+1$ pentru $x>1(|x+1|=-x-1$ pentru $x<-1$ ar da $2=0$) deci $x \in[-1,1] \Rightarrow 1-x=x+1 \Rightarrow x=0$, valabil c).\\
+152 este necesar și suficient ca ecuația $f(x)=g(x)$ să nu admită soluții.\\
+161 Se face graficul funcției și rezultă condițiile $a>0$ și $a-2 \leq 1-2 a$.\\
+163 Se determină $m \in \mathbb{R}$ astfel încât ecuația $f(x)=y$ să aibă rădăcini reale dacă și numai dacă $y \in\left[\frac{1}{2}, \frac{3}{2}\right]$.\\
+164 Se folosește identitatea $|x-y|=\sqrt{(x-y)^{2}}=\sqrt{(x+y)^{2}-4 x y}$.\\ 
+165 Avem $x, y \in \mathbb{N}, x \geq 4, y \geq 3$. Ecuația se rescrie $(x+1)+(y+1)=9$, cu singura soluție $x=4, y=3$.\\
+166 Relația se rescrie $a^{2}\left(\frac{x^{2}}{y^{2}}+\frac{y^{2}}{x^{2}}\right)+2 a b\left(\frac{x}{y}+\frac{y}{x}\right) \geq 2 a^{2}+4 a b$, și este evident implicată de egalitățile $\frac{x^{2}}{y^{2}}+\frac{y^{2}}{x^{2}} \geq 2$ și $\frac{x}{y}+\frac{y}{x} \geq 2$, care au loc pentru orice $x, y>0$.\\
+167 Cum $a b=c d$ și $a-b=d-c \Rightarrow a^{2}+b^{2}=c^{2}+d^{2}$ și ecuația devine $[x-(a+b)]^{2}+[y-(a-b)]^{2}=0 \Rightarrow x=a+b, y=a-b$.\\
+168 $E(x, y)=(2 x+3 y-5)^{2}+(y-1)^{2}+7$, și minimul se atinge pentru $\left\{\begin{array}{l}2 x+3 y-5=0 \\ y-1=0\end{array} \Leftrightarrow\left\{\begin{array}{l}x=1 \\ y=1\end{array}\right.\right.$, iar $E(1,1)=7$.\\
+169 Obținem $\frac{x y}{x+y}=$ $\frac{\left(25 a^{2}-7\right) / 3}{5 a}<0 \Leftrightarrow a \in\left(-\infty,-\frac{\sqrt{7}}{5}\right) \cup\left(0, \frac{\sqrt{7}}{5}\right)$.
+172 $\left.173 \mathrm{~d}\right)$.\\
+180 Din $y=-x^{2}+1, x \leq-1$ rezultă $x=-\sqrt{1-y}, y \leq 0$, deci schimbând variabila avem $y=-\sqrt{1-x}$, $x \leq 0$. Analog din $y=2 x+3, x>-1, y>1$ rezultă $x=\frac{1}{2}(y-3), y>1$, deci schimbând rolul variabilelor $y=\frac{1}{2}(x-3), y>1$, deci corect este a).\\
+
+\subsubsection*{1.2 Funcția exponențială şi funcția logaritmică}
+230 Notăm $(1+\sqrt{3})^{x}=t>0$ și inecuația devine $(t-1)^{2}(t+2)>0$ cu soluția $t \in(0, \infty) \setminus\{0\}$.\\
+245 Se va observa că funcția $f:[2, \infty) \rightarrow \mathbb{R}, f(x)=2^{\sqrt{x-2}}+3^{\sqrt{x^{2}-4}}+4^{\sqrt{x^{2}-x-2}}$ este strict crescătoare, iar $f(2)=3$.\\
+249 $x=3^{\log _{4}(4 y)} \Rightarrow 3^{3^{\log _{4}(4 y)}}+4^{y}=13$ care are soluție unică.\\
+253 Pentru $x=3$ avem egalitate, iar funcțiile $f(x)=\frac{3^{x}}{6^{x}}, g(x)=\frac{4^{x}}{6^{x}}, h(x)=\frac{5^{x}}{6^{x}}$ sunt descrescătoare deci și $\varphi(x)=f(x)+g(x)+h(x)$ este descrescătoare; $\varphi(0)=3, \varphi(3)=1$, prin urmare $x \leq 3$ verifică, deci d).\\
+
+\subsubsection*{1.3 Numere complexe. Inducție și combinatorică. Polinoame}
+348 Se va arăta că $w=\bar{w}$. 349 b) Se va pune condiția $w=\bar{w}$.\\
+352 Se va folosi relația $(k+1) \mathrm{C}_{n+1}^{k+1}=(n+1) \mathrm{C}_{n}^{k}$.\\
+355 Se calculează $(1+\mathrm{i})^{n}$ in două moduri: se dezvoltă cu formula binomului lui Newton și $(1+\mathrm{i})^{n}=\left(\sqrt{2}\left(\cos \frac{\pi}{4}+\mathrm{i} \sin \frac{\pi}{4}\right)\right)^{n}$.\\
+356 Avem $10 \cdot C_{40}^{2}$ cazuri cu o bilă albă și $C_{40}^{3}$ cazuri cu 3 bile negre, deci în total $10 \cdot C_{40}^{2}+C_{40}^{3}=17680$ cazuri cu cel mult o bilă albă.\\
+362 Rădăcinile sunt de forma $x_{1}=\frac{\alpha}{q}, x_{2}=\alpha, x_{3}=\alpha q$, și se vor folosi relațiile lui Viète.\\
+366 Înlocuind i în ecuație, rezultă $m=7+8 \mathrm{i}$ împărțind prin $z-\mathrm{i}$, se află soluțiile $z_{2,3} \in\{1+2 \mathrm{i}, 3-2 \mathrm{i}\}$. Cum $z_{2}$ și $z_{3}$ se pot alege in două moduri diferite, $a$ poate lua două valori posibile.\\
+
+\subsubsection*{1.4 Matrice. Determinanți. Sisteme liniare}
+404 Se adună toate liniile la prima, se da factor comun $x+4 a$ și se scade prima coloană din celelalte.\\
+422 Dacă punem $B=\left(\begin{array}{lll}0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{array}\right)$, atunci $A=I_{3}+B$ și deoarece $I_{3} B=B I_{3}$, putem aplica formula binomului pentru calculul lui $\left(I_{3}+B\right)^{n}$, unde se va ține seamă că $B^{n}=0$ pentru $n \geq 3$.\\
+426 Prin calcul rezultă $$A^{2}=\left(\begin{array}{llll}0 & 0 & 1 & 0 \\0 & 0 & 0 & 1 \\1 & 0 & 0 & 0 \\0 & 1 & 0 & 0\end{array}\right), \quad A^{3}=\left(\begin{array}{llll}0 & 0 & 0 & 1 \\1 & 0 & 0 & 0 \\0 & 1 & 0 & 0 \\0 & 0 & 1 & 0\end{array}\right),$$ $A^{4}=I_{4}$ deci $A^{20}=\left(A^{4}\right)^{5}=I_{4}$.\\
+438 Pentru calculul lui $\operatorname{det}\left(I_{n}+a A\right)$ se vor aduna toate coloanele (liniile) acestui determinant la prima coloană (linie).\\
+439 Se scrie $A=2\left(\begin{array}{rrr}\frac{1}{2} & -\frac{\sqrt{3}}{2} & 0 \\ \frac{\sqrt{3}}{2} & \frac{1}{2} & 0 \\ 0 & 0 & 1\end{array}\right)$ și rezultă $A^{n}=2^{n}\left(\begin{array}{ccc}\cos \frac{n \pi}{3} & -\sin \frac{n \pi}{3} & 0 \\ \sin \frac{n \pi}{3} & \cos \frac{n \pi}{3} & 0 \\ 0 & 0 & 1\end{array}\right)$.\\
+441 Sistemul $A B=O_{n}$ cu necunoscute coeficienții $b_{1}, \ldots, b_{n}$ ai matricei $B=\left(\begin{array}{ccc}b_{1} & \ldots & b_{1} \\ \vdots & \ddots & \vdots \\ b_{n} & \ldots & b_{n}\end{array}\right)$ este sistem liniar omogen de determinant nul, deci admite soluții nebanale.\\
+442 Indicație: prin schimbări de linii sau coloane între ele și prin înmulțiri cu -1 ale unor linii sau coloane $|D|$ nu se schimbă. Rămân de studiat cazurile: $$\left|\begin{array}{ccc}1 & 1 & 1 \\1 & -1 & 1 \\1 & 1 & -1\end{array}\right|=4 \text { si }\left|\begin{array}{ccc}-1 & 1 & 1 \\1 & -1 & 1 \\1 & 1 & -1\end{array}\right|=4 \text { etc. }$$\\
+449 Determinantul (Vandermonde) al sistemului este $a b(b-a)$.\\
+450 Obținem $\Delta=0 \Leftrightarrow a \in\{-1,2\}$, iar pentru $a=-1$ sistem simplu nedeterminat, deci $a=2$.\\
+
+\subsubsection*{1.5 Structuri algebrice}
+492 Trebuie să fie satisfăcută una din relațiile $A B=O_{2}, B A=O_{2}$.\\
+516 Fie $H=\left\{a_{1}, a_{2}, \ldots, a_{n}\right\}$. Atunci mulțimea $\left\{a_{1}^{2}, a_{1} a_{2}, \ldots, a_{1} a_{n}\right\}$ este egală cu $H$, deci există $j \in\{1,2, \ldots, n\}$ astfel încât $a_{1} a_{j}=a_{1}$; rezultă că elementul neutru este $a_{j}$ și deci aparține lui $H$. Analog se arată că orice element din $H$ are simetricul tot in $H$.\\ 
+
+\subsection*{2. Analiză matematică}
+\subsubsection*{2.1 Numere reale. Progresii. Șiruri}
+543 Se ține seama că $\varepsilon_{1}=\left|\pi^{2}-10\right|, \varepsilon_{2}=\left|\mathrm{e}^{3}-20\right|, \pi \cong 3,1416, \mathrm{e} \cong 2,7183$.\\
+559 Dacă $x_{2 n} \rightarrow \ell_{1}, x_{2 n+1} \rightarrow \ell_{2}, x_{3 n} \rightarrow \ell_{3}$ atunci $\ell_{1}=\ell_{2}=\ell_{3}$ deoarece subșirurile $x_{2 n} \cap x_{3 n}$ și $x_{2 n+1} \cap x_{3 n}$ au amândouă limita $\ell_{3}$.\\
+561 Din prima relație $z=3-x-y$ și prin înlocuire în a doua se obține $x^{2}+y^{2}+x y-3 x-3 y+3=0$, care, considerată ca o ecuație in $y$, conduce la $y = \frac{1}{2} \left(3 - x \pm \sqrt{-3(x-1)^{2}}\right)$. Rezultă $x=1$, etc.\\
+564 $D=(1, \infty) \cup\left\{e^{-n} \mid n \in \mathbb{N}^{*}\right\}$.\\
+568 Se recomandă graficul lui $f$.\\
+574 Se pornește de la identitatea $\sum_{k=1}^{n} q^{k-1}=\frac{1-q^{n}}{1-q}, \forall q \neq 1$. Derivând în raport cu $q$, obținem: $\sum_{k=1}^{n}(k-1) q^{k-2}=\left(\frac{1-q^{n}}{1-q}\right)^{\prime}$; înmulțind cu $q$, obținem suma seriei $\sum_{k=1}^{n}(k-1) q^{k-1}$.\\
+
+\subsubsection*{2.2 Limite}
+619 Pentru $0<\alpha<1$ avem $0<a_{n}<\alpha^{n} \rightarrow 0$; pentru $\alpha=1$ avem $a_{n}=\frac{1}{2^{n}} \rightarrow 0$ pentru $\alpha>1$ avem $0 < a_{n} < \frac{a^{n}}{\alpha \cdot \alpha^{2} \cdots \alpha^{n}} = \left(\frac{1}{\alpha}\right)^{\frac{n(n+1)}{2}} \rightarrow 0$.\\
+621 $\ell=\lim _{x \rightarrow 7} \frac{\frac{\sqrt{x+2}-3}{x-7}-\frac{\sqrt[3]{x+20}-3}{x-7}}{\frac{\sqrt[3]{x+9}-2}{x-7}-\frac{\sqrt[3]{x+25}-2}{x-7}}.$ Notăm $t=\sqrt{x+2}, u=\sqrt[3]{x+20} v=\sqrt[4]{x+9}, w=\sqrt[3]{x+25} \text { si obținem succesiv } \lim _{t \rightarrow 3} \frac{t-3}{t^{2}-9}=\lim _{t \rightarrow 3} \frac{1}{t+3}=\frac{1}{6}, \lim _{u \rightarrow 3} \frac{u-3}{u^{3}-27}=\lim _{u \rightarrow 3} \frac{1}{u^{2}+3 u+9}=\frac{1}{27}, \lim _{v \rightarrow 2} \frac{v-2}{v^{4}-16}=\lim _{v \rightarrow 2} \frac{1}{v^{3}+2 v^{2}+4 v+8}=\frac{1}{32}, \lim _{w \rightarrow 2} \frac{w-2}{w^{5}-32}=\lim _{w \rightarrow 2} \frac{1}{w^{4}+2 w^{3}+4 w^{2}+8 w+16}=\frac{1}{5 \cdot 16}=\frac{1}{80}$. Se poate utiliza și regula lui l'Hospital direct pentru tipul $\frac{0}{0}$.\\
+631 $\left\{x_{n}\right\}_{n \in \mathbb{N}}$ este monoton crescător, mărginit de $0$ și $1$, iar dintre limitele posibile $l \in\{1 \pm \sqrt{1-b}\}$ obținute trecând la limită în relația de recurență, convine doar $l=1-\sqrt{1-b}$.\\
+639 $\lim_{n \rightarrow \infty} x_{n} = e^{\lim_{n \rightarrow \infty} \left(\frac{\sqrt[n]{a} + \sqrt[n]{b} + \sqrt[n]{c}}{3} - 1\right) n} = e^{\frac{1}{3} \lim_{n \rightarrow \infty} \left[n \left(a^{\frac{1}{n}} - 1\right) + n \left(b^{\frac{1}{n}} - 1\right) + n \left(c^{\frac{1}{n}} - 1\right)\right]} = e^{\frac{1}{3} (\ln a + \ln b + \ln c)} = \sqrt[3]{a b c}$.\\
+642 $y_{n}=\frac{1^{2}}{n^{3}+n^{2}}+\frac{2^{2}}{n^{3}+n^{2}}+\ldots+$ $\frac{n^{2}}{n^{3}+n^{2}}<x_{n}<\frac{1^{2}}{n^{3}+1}+\frac{2^{2}}{n^{3}+1}+\ldots+\frac{n^{2}}{n^{3}+1}=z_{n}$ dar $y_{n}=\frac{n(n+1)(2 n+1)}{6\left(n^{3}+n^{2}\right)} \rightarrow \frac{1}{3}, z_{n}=\frac{n(n+1)(2 n+1)}{6\left(n^{3}+1\right)} \rightarrow \frac{1}{3}$ deci $x_{n} \rightarrow \frac{1}{3}$.\\
+647 Dacă tasta funcțională este $f$, după $n$ apăsări pe tasta respectivă se obține valoarea $x_{n}=(f \circ f \circ \ldots \circ f)\left(x_{0}\right)$ unde $f$ apare de $n$ ori, $n \in \mathbb{N}$. Acesta este un șir definit prin recurență sub forma $x_{n}=f\left(x_{n-1}\right)$. Șirurile $x_{n}=\sin x_{n-1}, x_{n}=\operatorname{arctg} x_{n-1}$ sunt convergente la 0. Șirul $x_{n}=\cos x_{n-1}$ converge la o valoare $\neq 1$. Șirul $x_{n}=\mathrm{e}^{x_{n-1}}$ este nemărginit și după mai multe apăsări pe tasta $e^{x}$ calculatorul va afișa un mesaj de eroare prin depășirea capacității registrului de memorare. Șirul $x_{n}=\ln x_{n-1}$ nu este corect definit (la un moment dat $x_{n-1}<0$ și $x_{n}$ nu mai poate fi calculat, calculatorul semnalând o eroare). Șirul $x_{n}=\sqrt{x_{n-1}}$ este convergent la 1.\\
+653 Aplicând inegalitatea Cauchy-Schwartz $\left(\sum_{k=1}^{n} x_{k} y_{k}\right)^{2} \leq\left(\sum_{i=1}^{n} x_{i}^{2}\right)\left(\sum_{j=1}^{n} y_{j}^{2}\right)$ pentru $y_{1}=\cdots=y_{n}=1$, obținem $\frac{1}{n}\left|\sum_{i=1}^{n} x_{i}\right| \leq \sqrt{\frac{x_{1}^{2}+\cdots+x_{1}^{2}}{n}}$, de unde $\lim _{n \rightarrow \infty} \frac{x_{1}+\cdots+x_{n}}{n}=0$. Un contra exemplu pentru răspunsurile (greșite) b, d,e,f îl constituie șirul $x_{n}=\frac{1}{n}$, $n \in \mathbb{N}$, iar pentru răspunsul (greșit) a, intercalatul acestui șir cu șirul nul.\\
+659 Dacă $S_{n}=1+2 x+3 x^{2}+\cdots+n x^{n-1}$, calculând $S_{n}-x S_{n}$ obținem în final $S_{n}=\frac{1-x^{n}}{(1-x)^{2}}-\frac{n x^{n}}{1-x}$. Pentru $x<1$, $f(x)=\lim _{n \rightarrow \infty} S_{n}=\frac{1}{(1-x)^{2}}$, iar pentru $x>1, f(x)=\lim _{n \rightarrow \infty} e^{n(1-x)}=0$; rezultă $l=1-0=1$.\\
+660 $\lim _{x \rightarrow 1} f(x)$ nu există deoarece limitele laterale sunt diferite, $\lim _{x \rightarrow \infty} g(x)=0$ conform criteriului majorării, $\left(|g(x)| \leq \mathrm{e}^{-x}\right)$ și $\lim _{x \rightarrow \infty} h(x)=\infty$ conform criteriului minorării $\left(h(x) \geq \mathrm{e}^{x}\right)$.\\
+
+\subsubsection*{2.3 Funcții continue}
+703 Se va folosi definiția cu șiruri a continuității.\\
+704 Fie $x \in \mathbb{R}$ arbitrar. Din enunț rezultă imediat că $f(x)=f\left(\frac{x+1}{2}-1\right)$ și prin inducție $f(x)=f\left(\frac{x+1}{2^{n}}-1\right)$, pentru orice $n \in \mathbb{N}^{*}$. Din continuitate se deduce că $f(x)=f(-1)$.\\
+713 Imaginea este evident un interval, dar $f\left(\left[\frac{3}{4}, \frac{5}{4}\right]\right)=\left[0, \frac{1}{4}\right] \cup\left[\frac{3}{4}, 1\right]$, deci $f$ nu are proprietatea lui Darboux.\\
+
+\subsubsection*{2.4 Derivabilitate}
+759 Dacă $x \neq \pm 1, f^{\prime}(x)=\frac{2}{1+x^{2}} \frac{1-x^{2}}{1-x^{2}}$.\\
+762 Se va arăta că $f^{(n)}(x)$, $x>0$, este de forma $\frac{P(x)}{Q(x)} \mathrm{e}^{-\frac{1}{x}}$ unde $P$ și $Q$ sunt funcții polinomiale.\\
+766 $4 x g^{\prime \prime}(x)+2 g^{\prime}(x)=g(x) \rightarrow 2 g^{(n-1)}(x)+4\left[x g^{(n)}(x)+(n-2)g^{(n-1)}\right.]=g^{(n-2)} (x) \rightarrow (4n-6)g^{(n-1)} (0)=g^{(n-2)} (0)$ etc.\\
+771 $f(x) = \begin{cases}-x, & x<-1 \\ 1, & x=-1 \\ -(n+1)x, & x=\in(-\frac{1}{n},-\frac{1}{n+1}] \\ 1, & x=0 \\ nx, & x\in(\frac{1}{n+1},\frac{1}{n}] \\ 0, & x>1\end{cases}$ este continuă in $x=0$.\\
+772 $f^{\prime}(x)=\frac{2}{3}\left(\frac{1}{\sqrt[3]{x+1}}+\frac{1}{\sqrt[3]{x-1}}\right), f_{s}^{\prime}(-1)=-\infty$, $f^{\prime}(-1)=+\infty, f_{s}^{\prime}(1)=-\infty, f_{d}^{\prime}(1)=+\infty$, deci $x_{1}=-1$ și $x_{2}=1$ sunt puncte de întoarcere.
+
+\subsubsection*{2.5 Studiul funcțiilor cu ajutorul derivatei}
+799 Se pune condiția $f^{\prime}(x)>0, \forall x \in \mathbb{R}$.\\
+809 Se calculează $f^{\prime \prime}(x)=\frac{1}{x}\left(1+6 a x^{2}\right)$; dacă $a<0$, atunci $f^{\prime \prime}$ are o singură rădăcină reală pozitivă, iar pentru $a \geq 0$, $f^{\prime \prime}$ nu are nici o rădăcină reală.\\
+813 Extremele funcției au loc în acele puncte pentru care $\operatorname{tg}^{2} x=n$. Se deduce imediat că $M_{n}=\frac{n^{\frac{n}{2}}}{(n+1)^{\frac{n+1}{2}}}$.\\
+842 Se calculează derivata $f^{\prime}(x)=-\frac{x+2}{(x+1)^{2}} \mathrm{e}^{-x}, \forall x \in(-\infty,-1) \cup(-1,0)$ și $f^{\prime}(x)=\frac{x}{(x+1)^{2}} \mathrm{e}^{x}, \forall x \in(0, \infty)$; în $x=0$ funcția $f$ nu este derivabilă. Funcția are două puncte de extrem local $x_{1}=-2$ (maxim local) și $x_{2}=0$ (punct de minim).\\
+843 $f^{\prime}(x)=\frac{x^{3}+x+a}{\sqrt{\left(x^{2}+1\right)^{3}}}$; folosind metoda șirului lui Rolle, rezultă că $f^{\prime}$ are o singură rădăcină reală, $\alpha$, pentru orice $a \in \mathbb{R}$ Punctul de abscisă $\alpha$ este minim global al funcției $f$ şi deci $f(\mathbb{R})=[f(\alpha), \infty)$ trebuie deci impuse condițiile $f^{\prime}(\alpha)=f(\alpha)=0$. Rezultă două soluții: $a_{1}=$ $-2, \alpha_{1}=1, a_{2}=2, \alpha_{2}=-1$; deci $S=a_{1}+a_{2}=0$.\\
+
+\subsubsection*{2.6 Grafice de funcții}
+891 Fie $f(x)=4 x^{3}-3 x+1 ; f^{\prime}(x)=12 x^{2}-3 ; f^{\prime \prime}(x)=24 x ; f(x)=4\left(x-\frac{1}{2}\right)^{2}(x+1)$. Pentru $g$, acolo unde $f(x)<0$ luăm simetricul graficului față de axa $O x$.\\
+892 $f^{\prime}(x)=x^{\frac{1-2 x}{x}}(1-\ln x), \lim _{x \rightarrow 0} f(x)=0, \lim _{x \rightarrow \infty} f(x)=1$. Funcția are un maxim global in $x=e$ și $f(e)=e^{\frac{1}{e}}$.\\
+915 Obținem $f^{\prime}\left(x_{k}\right)=\frac{\left(2 k \pi+\frac{3 \pi}{2}\right)^{2}+\left(2 k \pi+\frac{\pi}{2}\right)^{2}}{\pi\left(2 k \pi+\frac{3 \pi}{2}\right)\left(2 k \pi+\frac{\pi}{2}\right)}$ și $\left.l=\lim _{k \rightarrow \infty} \frac{8 \pi^{2} k^{2}+\ldots}{4 \pi^{3} k^{2}+\ldots}=\frac{2}{\pi}\right.$.\\
+916 Obținem $f^{\prime}(x)=-2 \cdot \frac{3 x^{2}+3 x+1}{x^{2}(x+1)^{3}}, f^{\prime \prime}(x)=6 \cdot \frac{(2 x+1) \cdot\left[(x+1)^{2}+x^{2}\right]}{x^{4}(x+1)^{4}}$.\\
+920 Dacă $a \leq 0$, atunci $D=\mathbb{R}$, dacă $a>0$, atunci $D=\mathbb{R} \setminus\{\ln a\} ; f^{\prime}(x)=\frac{\mathrm{e}^{x}-a x-a}{\left(\mathrm{e}^{x}-a\right)^{2}} \mathrm{e}^{x}$. Pentru a studia ecuația $\mathrm{e}^{x}-a x-a=0$ se poate folosi metoda grafică: fie $g(x)=\frac{e^{x}}{x+1}$ și atunci ecuația devine $a=g(x)$. Pe graficul lui $g$ rezultă că ecuația are două rădăcini reale dacă și numai dacă $a>1$.\\
+
+\subsubsection*{2.7 Primitive}
+972 Se consideră funcția continuă $$g: \mathbb{R} \rightarrow \mathbb{R}, g(x)= \begin{cases}x \cos \frac{1}{x}, & x \neq 0 \\ 0, & x=0\end{cases}$$ și notăm cu $G$ o primitivă a sa. Rezultă că orice primitivă a lui $f$ ar fi de forma $F(x)=-x^{2} \cos \frac{1}{x}+2 G(x)+C$. Se va verifica că această funcție este derivabilă în origine și derivata sa este $f(0)$ doar pentru $a=0$.\\
+974 $\sqrt{x}=t$.\\
+
+\subsubsection*{2.8 Integrale definite}
+981 $I=\int_{\frac{\pi}{4}}^{\frac{\pi}{2}}\left(\operatorname{ctg}^{2} x+\operatorname{ctg}^{6} x\right)\left(1+\operatorname{ctg}^{2} x\right) d x=-\int_{\frac{\pi}{4}}^{\frac{\pi}{2}}\left(\operatorname{ctg}^{2} x+\right.$ $\left.\operatorname{ctg}^{6} x\right)(\operatorname{ctg} x)^{\prime} d x=-\left.\left(\frac{1}{3} \operatorname{ctg}^{3} x+\frac{1}{7} \operatorname{ctg}^{7} x\right)\right|_{\frac{\pi}{4}} ^{\frac{\pi}{2}}=\frac{1}{3}+\frac{1}{7}=\frac{10}{21}$.\\
+988 $I=\int_{0}^{1} \frac{1-x}{\sqrt{1-x^{2}}} d x=$ $\left.\left(\arcsin x+\sqrt{1-x^{2}}\right)\right|_{0} ^{1}=\frac{\pi}{2}-1$.\\
+989 $y=x^{3} \sqrt{x^{4}+1}$ este impară deci $I=0$.\\
+991 $I=\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \operatorname{ctg}^{3} x\left(1+\operatorname{ctg}^{3} x\right) d x=-\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \operatorname{ctg}^{3} x \cdot(\operatorname{ctg} x)^{\prime} d x=$ $-\left.\frac{\operatorname{ctg}^{4} x}{4}\right|_{\frac{\pi}{4}} ^{\frac{\pi}{2}}=\frac{1}{4}$.\\
+1024 $A=\lim _{n \rightarrow \infty} \frac{1}{n} \sum_{k=1}^{n} \frac{1}{1+\frac{k}{n}}=\int_{0}^{1} \frac{d x}{1+x}=\ln 2 ;$ analog se calculează și $B$.\\
+1050 Se integrează ambii membri ai egalității între $-a$ și $a$.\\
+1054 Pentru $a>3$ avem $\int_{1}^{3} \frac{d x}{1+|x-a|}=\int_{1}^{3} \frac{d x}{1+a-x}=\ln \frac{a}{a-2}$.\\
+1055 $f^{\prime}(x)=\frac{6}{x}-\frac{2 x}{x^{2}} \mathrm{e}^{x^{2}}=\frac{6-2 \mathrm{e}^{x^{2}}}{x}$; ecuația $f^{\prime}(x)=0$ are soluția $x=\sqrt{\ln 3}$, care este punct de maxim global al funcției $f ; \lim _{x \rightarrow 1} f(x)=0, \lim _{x \rightarrow \infty} f(x)=-\infty$. Ultima limită se poate calcula, de exemplu, astfel:\\$\left.\lim _{x \rightarrow \infty} f(x) \leq \lim _{x \rightarrow \infty}\left(6 \ln x-\int_{1}^{x^{2}} d t\right)=-\infty\right.$.\\
+1056 $\int_{0}^{1} x^{5} \sqrt{1-x^{2}} d x=$\\$-\frac{1}{2} \int_{0}^{1}\left(\left(1-x^{2}\right)-1\right)^{2} \sqrt{1-x^{2}}\left(1-x^{2}\right)^{\prime} d x=-\frac{1}{2} \int_{0}^{1}\left[\left(1-x^{2}\right)^{\frac{5}{2}}-2\left(1-x^{2}\right)^{\frac{3}{2}}+\right.$ $\left.\left(1-x^{2}\right)^{\frac{1}{2}}\right]\left(1-x^{2}\right)^{\prime} d x=\left.\left[-\frac{1}{7} \sqrt{\left(1-x^{2}\right)^{7}}+\frac{2}{5} \sqrt{\left(1-x^{2}\right)^{5}}-\frac{1}{3} \sqrt{\left(1-x^{2}\right)^{3}}\right]\right|_{0} ^{1}=$ $\frac{1}{7}-\frac{2}{5}+\frac{1}{3}=\frac{8}{105}$.\\
+
+\end{document}

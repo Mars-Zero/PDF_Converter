@@ -35,7 +35,7 @@ def text_formatter(text: str) -> str:
     return cleaned_text
 
 
-def split_sections(text: str) -> list[dict]:
+def split_exercise_sections(text: str) -> list[dict]:
     """
     Splits the text into exercises, options, and answers based on the provided patterns.
 
@@ -86,8 +86,7 @@ def split_sections(text: str) -> list[dict]:
 
     return exercises
 
-
-def open_and_read_latex(latex_path: str) -> list[dict]:
+def open_and_read_latex_exercises(latex_path: str) -> list[dict]:
     """
     Opens a LaTeX file, reads its content, and collects statistics.
 
@@ -104,7 +103,7 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
     text = latex_to_text(latex_content)
     text = text_formatter(text)
 
-    exercises = split_sections(text)
+    exercises = split_exercise_sections(text)
 
     for exercise in exercises:
         exercise["char_count"] = len(exercise["exercise_text"])
@@ -114,15 +113,72 @@ def open_and_read_latex(latex_path: str) -> list[dict]:
 
     return exercises
 
+    return cleaned_text
+
+
+def split_results_sections(text: str) -> list[dict]:
+    """
+    Splits the text into a list of dictionaries containing question numbers and their corresponding answers.
+
+    Parameters:
+        text (str): The plain text content.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing the question number and the correct answer.
+    """
+    # Define the regex pattern for extracting question numbers and answers
+    results_pattern = re.compile(
+        r'(?<!\d)(\d+)\s*([a-f])\)',
+        # Matches question numbers followed by their corresponding answer (e.g., 1 d), 2 e), etc.)
+        re.DOTALL
+    )
+
+    results = []
+
+    # Find all matches for question number and answers
+    for match in results_pattern.finditer(text):
+        question_number = match.group(1).strip()
+        correct_answer = match.group(2).strip()
+
+        results.append({
+            "question_number": question_number,
+            "correct_answer": correct_answer
+        })
+
+    return results
+
+
+def open_and_read_latex_results(latex_path: str) -> list[dict]:
+    """
+    Opens a LaTeX file, reads its content, and parses the results section.
+
+    Parameters:
+        latex_path (str): The file path to the LaTeX document to be opened and read.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing the question number and the correct answer.
+    """
+    with open(latex_path, "r", encoding="utf-8") as f:
+        latex_content = f.read()
+
+    text = latex_to_text(latex_content)
+    text = text_formatter(text)
+    print(text)
+
+    results = split_results_sections(text)
+
+    return results
+
+
+
 
 # Define the path to the LaTeX files
-latex_files = glob.glob("latex_docs/cnv_2024_07_17_524f58412b42245c9921g.tex")
+latex_exercise_files = glob.glob("latex_docs/Exercitii.tex")
 all_exercises = []
 
-
 # Process each LaTeX file
-for latex_file in latex_files:
-    exercises = open_and_read_latex(latex_file)
+for latex_file in latex_exercise_files:
+    exercises = open_and_read_latex_exercises(latex_file)
 
     # Analyze each exercise with Spacy
     for item in tqdm(exercises, desc=f"Analyzing {latex_file}"):
@@ -131,8 +187,11 @@ for latex_file in latex_files:
 
     all_exercises.extend(exercises)
 
-# Optionally, inspect a random sample
-print(random.sample(all_exercises, k=1))
+
+latex_results_files = glob.glob("latex_docs/Raspunsuri.tex")
+for latex_file in latex_results_files:
+    results = open_and_read_latex_results(latex_file)
+    all_exercises.extend(results)
 
 # Define the output JSON file path
 file_path = "teste_admitere_fizica.json"
